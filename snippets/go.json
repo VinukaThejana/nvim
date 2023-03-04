@@ -1,0 +1,69 @@
+{
+  "require": {
+    "prefix": "@@",
+    "body": [
+      "/*",
+      "* Copyright © 2022 Vinuka Kodituwakku vinuka.Kodituwakku@gmail.com",
+      "*/"
+    ],
+    "description": "Copyright comment"
+  },
+  "header(1)": {
+    "prefix": "content-json",
+    "body": [
+      "w.Header().Set(\"Content-Type\", \"application/json\")"
+    ],
+    "description": "JSON content type"
+  },
+  "http-method-options": {
+    "prefix": "http-method-options",
+    "body": [
+      "if r.Method == http.MethodOptions {",
+      "\tw.Header().Set(\"Access-Control-Allow-Origin\", \"*\")",
+      "\tw.Header().Set(\"Access-Control-Allow-Methods\", \"POST\")",
+      "\tw.Header().Set(\"Access-Control-Allow-Headers\", \"Content-Type\")",
+      "\tw.Header().Set(\"Access-Control-Max-Age\", \"3600\")",
+      "\tw.Header().Set(\"Access-Control-Max-Age\", \"3600\")",
+      "\treturn",
+      "}"
+    ]
+  },
+  "apply-cors": {
+    "prefix": "apply-cors",
+    "body": [
+      "w.Header().Set(\"Access-Control-Allow-Origin\", \"*\")"
+    ]
+  },
+  "check-content-type": {
+    "prefix": "check-content-type",
+    "body": [
+      "if r.Header.Get(\"Content-Type\") != \"\" {",
+      "\tvalue, _ := header.ParseValueAndParams(r.Header, \"Content-Type\")",
+      "\tif value != \"application/json\" {",
+      "\t\t$2",
+      "\t\teturn",
+      "\t}",
+      "}"
+    ]
+  },
+  "set-max-bytes": {
+    "prefix": "set-max-bytes",
+    "body": [
+      "// Set the max body size to $1 MB",
+      "r.Body = http.MaxBytesReader(w, r.Body, 1048576*$1)",
+      "if err := r.ParseMultipartForm(1048576*$1); err != nil {",
+      "\tlog.Println(err)",
+      "\t$2",
+      "\treturn",
+      "}"
+    ]
+  },
+  "disallow-unknown-feilds": {
+    "prefix": "disallow-unknown-feilds",
+    "body": [
+      "// Disallow unknwon feilds in the JSON body",
+      "dec := json.NewDecoder(r.Body)",
+      "dec.DisallowUnknownFields()"
+    ]
+  }
+}
