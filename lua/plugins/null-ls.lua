@@ -80,6 +80,14 @@ return {
           nls.builtins.diagnostics.actionlint.with({
             filetypes = { "yaml" },
           }),
+
+          -- Protocol buffers
+          nls.builtins.diagnostics.protoc_gen_lint.with({
+            filetypes = { "proto" },
+          }),
+          nls.builtins.formatting.buf.with({
+            filetypes = { "proto" },
+          }),
         },
       }
     end,

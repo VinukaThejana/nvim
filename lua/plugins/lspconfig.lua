@@ -11,7 +11,7 @@ return {
         jsonls = {},
         pyright = {},
         gopls = {},
-        clangd = {},
+        -- clangd = {},
         prismals = {},
         marksman = {},
         solang = {},
